@@ -8,7 +8,7 @@ p = Protocol()
 
 config = {
     "assay_name": "thermofluor",
-    "reaction_volume": "25:microliter",
+    "reaction_volume": "45:microliter",
     "number_of_reactions": 96,
     "number_of_negative_controls": 3,
     "start_temp": "25.0:celsius",
