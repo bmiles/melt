@@ -1,6 +1,6 @@
 from autoprotocol import *
 from promodules.helpers import createMastermix
-from thermofluor_assay import thermofluor_make_plate ##, thermofluor_measure
+from thermofluor_assay import thermofluor_make_plate, thermofluor_measure
 import transcriptic as tp
 import json
 
@@ -19,7 +19,7 @@ config = {
 }
 
 thermofluor_make_plate(p, config)
-# thermofluor_measure(p, config)
+thermofluor_measure(p, config)
 
 print json.dumps(p.as_dict())
 
