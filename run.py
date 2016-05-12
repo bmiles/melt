@@ -12,6 +12,8 @@ p = Protocol()
 
 milli_lyso = p.ref("milli_lyso", id=None,
                    cont_type="micro-1.5", storage=None, discard=True)
+
+
 working_lyso = p.ref("working_lyso", id=None,
                      cont_type="micro-1.5", storage=None, discard=True)
 # make 6mM
@@ -19,13 +21,18 @@ p.provision(_res.water, milli_lyso.well(0), "1000:microliter")
 p.provision(lysozyme, milli_lyso.well(0), "1:microliter")
 p.mix(milli_lyso.well(0), "500:microliter",
       speed="100:microliter/second", repetitions=10)
+milli_lyso.well(0).set_properties({"concentration": "0.83:millimole / liter"})
+
 
 # make 60uM
-p.provision(_res.water, working_lyso.well(0), "1000:microliter")
+p.provision(_res.water, working_lyso.well(0), "100:microliter")
 p.transfer(milli_lyso.well(0), working_lyso.well(0), "10:microliter",
            mix_after=True, mix_vol="25:microliter", repetitions=10)
 p.mix(working_lyso.well(0), "500:microliter",
       speed="100:microliter/second", repetitions=10)
+
+working_lyso.well(0).set_properties({"concentration": "83:micromole / liter"})
+
 
 config = {
     "assay_name": "thermofluor",
