@@ -1,3 +1,6 @@
+[[https://github.com/bmiles/melt/blob/master/img/melt.png|alt=melt]]
+
+
 # melt
 This repo contains a protocol for running a thermofluor melt assay on Transcriptic. It is a work in progress. An example execution is shown in `run.py` to determine the Tm of lysozyme.
 
