@@ -1,4 +1,4 @@
-[[https://github.com/bmiles/melt/blob/master/img/melt.png|alt=melt]]
+![melt_image](https://raw.githubusercontent.com/bmiles/melt/blob/master/img/melt.png)
 
 
 # melt
