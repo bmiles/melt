@@ -39,19 +39,20 @@ def thermofluor_make_plate(protocol, config):
           speed="50:microliter/second", repetitions=10)
 
     working_sypro = createMastermix(p, "sypro_mm", "micro-1.5",
-                               config["number_of_reactions"],
-                               {
-                                _res.water: Unit("5:microliter") * 0.96,
-                                sypro_res: Unit("5:microliter") * 0.04
-                               })
+                                    config["number_of_reactions"],
+                                    {
+                                        _res.water: Unit("5:microliter") * 0.96,
+                                        sypro_res: Unit("5:microliter") * 0.04
+                                    })
 
-
-    p.dispense(assay_plate, "pbs", [{"column": 0, "volume": Unit(dispense_round(buffer_volume.magnitude), "microliter")}])
+    p.dispense(assay_plate, "pbs", [{"column": 0, "volume": Unit(
+        dispense_round(buffer_volume.magnitude), "microliter")}])
 
     p.distribute(working_sypro, assay_plate_wells,
-                 "5:microliter", allow_carryover=True)
-    p.distribute(config["constant_component_source"], assay_plate_wells[:-1],
-                 "2:microliter", allow_carryover=False, mix_vol="25:microliter", repetitions=10)
+                 "5:microliter", allow_carryover=False)
+    for well in assay_plate_wells[:-1]:
+        p.transfer(config["constant_component_source"], well,
+                   "2:microliter", mix_vol="25:microliter", repetitions=10)
 
     p.seal(assay_plate)
     p.spin(assay_plate, "2000:g", "2:minute")
@@ -71,7 +72,7 @@ def thermofluor_measure(protocol, config):
     p.thermocycle(assay_plate, [{
         "cycles": 1,
         "steps": [{"temperature": start_temp,
-                "duration": hold_time, "read": True}]
+                   "duration": hold_time, "read": True}]
     }],
         volume=config["reaction_volume"],
         dataref=config["assay_name"],
@@ -80,5 +81,6 @@ def thermofluor_measure(protocol, config):
             config["Dye"][1]: assay_plate_wells.indices()},
         **melt_params)
 
+
 def dispense_round(x, base=5):
-    return int(base * round(float(x)/base))
+    return int(base * round(float(x) / base))
